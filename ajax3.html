@@ -7,5 +7,46 @@
 </head>
 <body>
     <h1>AJAX With External API</h1>
+
+    <button id="btn">Load Github Users</button>
+    <br><br>
+    <h1>GitHub Users</h1>
+    <div id="users"></div>
+
+
+    <script>
+        document.getElementById('btn').addEventListener('click', loadusersGithub)
+
+        // Load Github Users
+
+        function loadusersGithub(){
+            const xhr = new XMLHttpRequest();
+         
+            xhr.open('GET', 'https://api.github.com/users', true)
+
+            xhr.onload = function(){
+                if(this.status === 200){
+                    const users = JSON.parse(this.responseText)
+
+                    let result = '';
+                    for(let i in users){
+                        result += 
+                        '<div class="user">' +
+                        '<img src="'+users[i].avatar_url +'" width="70" height="70">'+
+                        '<ul>' +
+                            '<li>ID: '+users[i].id+'</li>'+
+                            '<li>Login: '+users[i].login+'</li>'+
+                            '<li>Followers: '+users[i].followers_url+'</li>'+
+                            '<li>Following: '+users[i].following_url+'</li>'+
+                            '</ul>'
+                             '</div>'
+                       }
+                       document.getElementById('users').innerHTML = result
+                }
+            }
+
+            xhr.send()
+        }
+    </script>
 </body>
 </html>
