@@ -6,6 +6,49 @@
     <title>AJAX 4 - AJAX & PHP Forms</title>
 </head>
 <body>
-    <button></button>
+    <button id="btn">Get name</button>
+    <hr>
+    <h1>GET Form With Php</h1>
+    <form method="GET" action="procces.php">
+        <input type="text" name="name">
+        <input type="submit" value="submit">
+    </form>
+
+    <h1>AJAX GET Form</h1>
+    <form id="getForm">
+        <input type="text" name="name" id="name1">
+        <input type="submit" value="submit">
+    </form>
+
+    <h1>Post Form</h1>
+    <form id="getForm">
+        <input type="text" name="name" id="name1">
+        <input type="submit" value="submit">
+    </form>
+
+    <h1>AJAX POST Form</h1>
+    <form id="getForm">
+        <input type="text" name="name" id="name2">
+        <input type="submit" value="submit">
+    </form>
+    <script>
+         document.getElementById('btn').addEventListener('click', getName)
+         document.getElementById('getForm').addEventListener('submit', getName)
+         
+         function getName(e){
+            event.preventDefault();
+            const name = document.getElementById('name1').value;
+
+
+            const xhr = new XMLHttpRequest();
+
+            xhr.open('GET', 'procces.php?name='+name, true);
+
+            xhr.onload = function(){
+                console.log(this.responseText)
+            }
+            xhr.send();
+         }
+    </script>
 </body>
 </html>
